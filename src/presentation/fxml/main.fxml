@@ -1,36 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.text.Font?>
-
-<AnchorPane id="AnchorPane"
-            prefHeight="448.0"
-            prefWidth="939.0"
-            xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.controller.MainController">
+<AnchorPane id="AnchorPane" prefHeight="448.0" prefWidth="939.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.controller.MainController">
         <children>
-        <TabPane fx:id="tabPane"
-                 prefHeight="200.0"
-                 prefWidth="200.0"
-                 tabMaxWidth="80.0"
-                 tabMinWidth="80.0"
-                 AnchorPane.bottomAnchor="0.0"
-                 AnchorPane.leftAnchor="0.0"
-                 AnchorPane.rightAnchor="0.0"
-                 AnchorPane.topAnchor="0.0" />
-        <Button fx:id="newTabBtn"
-                layoutY="20.0"
-                mnemonicParsing="false"
-                onAction="#newTab" prefHeight="16.0"
-                prefWidth="23.0" text="+" textAlignment="CENTER"
-                AnchorPane.leftAnchor="100.0"
-                AnchorPane.topAnchor="4.0">
-            <font>
-                <Font name="System Bold" size="12.0" />
-            </font>
-        </Button>
+        <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/main.css" tabMaxWidth="80.0" tabMinWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <FontAwesomeIconView fx:id="bntNewTab" glyphName="PLUS" layoutX="106.0" layoutY="21.0" />
         </children>
 </AnchorPane>

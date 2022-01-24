@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 
+    private static final float MIN_WIDTH = 300;
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -16,7 +17,10 @@ public class Main extends Application {
         Scene s = new Scene(p);
 
         stage.setScene(s);
+        stage.setMinWidth(MIN_WIDTH);
         stage.show();
+
+
     }
 
     public static void main(String[] args) {

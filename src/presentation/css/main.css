@@ -1,0 +1,9 @@
+#AnchorPane{
+    -fx-background-color: white;
+}
+#tabPane{
+    -fx-background-color: white;
+}
+#newTabBtn{
+    -fx-background-color: transparent;
+}

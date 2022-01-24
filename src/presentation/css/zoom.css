@@ -1,0 +1,14 @@
+HBox{
+    -fx-background-color: white;
+    -fx-border-width: 1;
+    -fx-border-color: #DDD;
+
+}
+
+Button{
+    -fx-background-color: white;
+    -fx-border-color: #EEEEFF;
+    -fx-text-fill: blue;
+    -fx-pref-width: 80;
+    -fx-pref-height: 25;
+}
