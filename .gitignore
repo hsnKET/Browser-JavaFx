@@ -2,4 +2,4 @@ out/
 src/presentation/controller/TabViewController.java
 #nous le créons dynamique
 src/presentation/fxml/tabview.fxml
-src/presentation/fxml/zoom.fxml
+src/presentation/fxml/zom.fxml
