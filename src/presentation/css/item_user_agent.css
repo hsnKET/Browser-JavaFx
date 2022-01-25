@@ -1,0 +1,43 @@
+.nom{
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+    -fx-underline: true;
+}
+
+.text-field-userAgent-disable{
+    -fx-background-color: none
+}
+
+.btn-close{
+    -fx-background-color: red;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.btn-supprimer{
+    -fx-background-color: red;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.btn-edit{
+    -fx-background-color: #00ffa6;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.btn-Enrg{
+    -fx-background-color: #00cfff;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.item-user-agent{
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 3 5;
+    -fx-alignment: center;
+    -fx-spacing: 5;
+    -fx-border-width: 1;
+    -fx-border-color: #DDDDDD;
+    -fx-border-radius: 4;
+    -fx-background-radius:4;
+
+}

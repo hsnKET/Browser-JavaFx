@@ -22,7 +22,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import callbacks.*;
-public class TabView implements BrowserState,ZoomListener{
+public class TabView implements BrowserState,ZoomListener, Menu.MenuListener, SideBarListener,UserAgentListener {
 
 
     private Tab tab;
@@ -35,26 +35,47 @@ public class TabView implements BrowserState,ZoomListener{
     private StackPane stackPane;
     private TextField tfSearch;
     private FontAwesomeIconView btnSafe;
+    private FontAwesomeIconView btnDownload;
     private FontAwesomeIconView btnZoom;
     private FontAwesomeIconView btnStar;
     private FontAwesomeIconView btnMenu;
     private TabListenerState mTabListenerState;
     private Browser browser;
+    private Favorites favorites;
+    private UserAgents userAgents;
     private BrowserState browserState;
     private Zoom zoom ;
-
+    Menu menu ;
     public TabView(String title){
         this.title = title;
+        menu = new Menu(this);
         createTab();
         initTab();
         browser.setBrowserState(this);
         browser.load("https://www.google.com");
+        favorites = new Favorites(this);
 
+        userAgents=new UserAgents(this);
+        browser.setUserAgent(userAgents.getCheckedUserAgent());
+        parent.getChildren().add(favorites.getContent());
+        parent.getChildren().add(userAgents.getContent());
+        updateBtnStar(browser.getWebView().getEngine().getLocation());
     }
 
+    private void initFavorites(){
+        AnchorPane.setRightAnchor(favorites.getContent(),10d);
+        AnchorPane.setTopAnchor(favorites.getContent(),browser.getWebView().getLayoutY()+1);
+        AnchorPane.setBottomAnchor(favorites.getContent(),0d);
+
+    }
+    private void initUserAgents(){
+        AnchorPane.setRightAnchor(userAgents.getContent(),10d);
+        AnchorPane.setTopAnchor(userAgents.getContent(),browser.getWebView().getLayoutY()+1);
+        AnchorPane.setBottomAnchor(userAgents.getContent(),0d);
+
+    }
     private void createTab(){
         tab = new Tab(title);
-
         parent = new AnchorPane();
         parent.setPrefHeight(450);
         parent.setPrefWidth(800);
@@ -95,11 +116,13 @@ public class TabView implements BrowserState,ZoomListener{
         btnReload = createIcon("REFRESH");
         tfSearch = createSearchField();
         tfSearch.setId("tfSearch");
+        btnDownload = createIcon("ARROW_DOWN");
         btnZoom = createIcon("SEARCH_PLUS");
         btnStar = createIcon("STAR_ALT");
+
         btnMenu = createIcon("ELLIPSIS_V");
         //add buttons to hBox
-        hBox.getChildren().addAll(btnBack,btnForward,btnReload,stackPane,btnZoom,btnStar,btnMenu);
+        hBox.getChildren().addAll(btnBack,btnForward,btnReload,stackPane,btnDownload,btnZoom,btnStar,btnMenu);
         //add to AnchorPane
         parent.getChildren().add(hBox);
 
@@ -160,11 +183,19 @@ public class TabView implements BrowserState,ZoomListener{
             browser.reload();
         });
         btnStar.setOnMouseClicked((e)->{
+            if(favorites.isInFavorites(browser.getWebView().getEngine().getLocation())){
+                favorites.delete(browser.getWebView().getEngine().getLocation());
+            }else {
+                favorites.add(new Favorite(browser.getWebView().getEngine().getTitle(),browser.getWebView().getEngine().getLocation()));
+            }
+            updateBtnStar(browser.getWebView().getEngine().getLocation());
 
         });
+
         btnMenu.setOnMouseClicked((e)->{
-
+            menu.show(btnMenu,e.getScreenX()-70,e.getScreenY()+23);
         });
+
     }
     private void initTab(){
         this.tab.setOnClosed((e)->{
@@ -199,7 +230,16 @@ public class TabView implements BrowserState,ZoomListener{
         btnReload.setOnMouseClicked((e) -> {
             browser.stopLoading();
         });
+
+        updateBtnStar(webEngine.getLocation());
     }
+
+    private void updateBtnStar(String url) {
+       if(favorites.isInFavorites(url))
+             btnStar.setGlyphName("STAR");
+       else  btnStar.setGlyphName("STAR_ALT");
+    }
+
 
     @Override
     public void onPageLoaded(WebEngine webEngine) {
@@ -208,6 +248,7 @@ public class TabView implements BrowserState,ZoomListener{
         btnReload.setOnMouseClicked((e) -> {
             browser.reload();
         });
+        updateBtnStar(webEngine.getLocation());
     }
 
     @Override
@@ -259,5 +300,48 @@ public class TabView implements BrowserState,ZoomListener{
     public void onReset() {
         zoom.updateZoom(1);
         browser.resetZoom();
+    }
+
+    @Override
+    public void onHistoryClicked() {
+
+    }
+
+    @Override
+    public void onFavoriteClicked() {
+        initFavorites();
+        favorites.show();
+    }
+
+    @Override
+    public void onDownloadClicked() {
+
+    }
+
+    @Override
+    public void onUserAgentClicked() {
+        initUserAgents();
+        userAgents.show();
+    }
+
+    @Override
+    public void onUserCookieClicked() {
+
+    }
+    @Override
+    public void onItemClicked(Favorite item) {
+        favorites.hide();
+        browser.load(item.getUrl());
+    }
+
+    @Override
+    public void onFavoriteItemRemoved(Favorite favorite) {
+        updateBtnStar(favorite.getUrl());
+    }
+
+
+    @Override
+    public void onUserAgentChecked(UserAgent userAgent) {
+        browser.setUserAgent(userAgent);
     }
 }

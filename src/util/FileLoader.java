@@ -10,4 +10,6 @@ public class FileLoader {
         fxmlLoader.setLocation(FileLoader.class.getResource("/presentation/fxml/"+fileName+".fxml"));
         return fxmlLoader;
     }
+
+
 }

@@ -1,6 +1,6 @@
 package matier;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.Date;
 
 public class Favorite implements Serializable {
@@ -8,7 +8,13 @@ public class Favorite implements Serializable {
     private String url;
     private Date date;
 
+
     public Favorite(String title, String url, Date date) {
+        this.title = title;
+        this.url = url;
+        this.date = date;
+    }
+    public Favorite(String title, String url) {
         this.title = title;
         this.url = url;
         this.date = date;

@@ -4,7 +4,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="448.0" prefWidth="939.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.controller.MainController">
+<AnchorPane id="AnchorPane" prefHeight="448.0" prefWidth="939.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.controller.MainController">
         <children>
         <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/main.css" tabMaxWidth="80.0" tabMinWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <FontAwesomeIconView fx:id="bntNewTab" glyphName="PLUS" layoutX="106.0" layoutY="21.0" />

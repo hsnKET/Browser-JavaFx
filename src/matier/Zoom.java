@@ -2,15 +2,22 @@ package matier;
 
 import callbacks.ZoomListener;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
+import util.AnimationHelper;
 
 public class Zoom {
 
@@ -33,11 +40,16 @@ public class Zoom {
     }
     public void show(){
         anchorPane.setVisible(true);
+        anchorPane.setTranslateY(-anchorPane.getHeight()/4);
         showed=true;
+        AnimationHelper.showAnim(anchorPane.translateYProperty(),0);
     }
     public void hide(){
-        anchorPane.setVisible(false);
-        showed=false;
+        AnimationHelper.hideAnim(anchorPane.translateYProperty(), -anchorPane.getHeight()/4,()->{
+            anchorPane.setVisible(false);
+            showed=false;
+        });
+
     }
 
     public boolean isShowed() {

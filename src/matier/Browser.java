@@ -29,9 +29,6 @@ public class Browser {
         createWebView();
         webEngine = webView.getEngine();
         history = webEngine.getHistory();
-
-
-
     }
 
     private void createWebView(){
@@ -64,17 +61,21 @@ public class Browser {
                         tabView.getTab().setGraphic(progressIndicator);
 
                         if(browserState!=null){
-                            browserState.onPageLoading(webEngine);
-                            browserState.onSecureStateChange((webEngine.getLocation()!=null && webEngine.getLocation().startsWith("https")));
+                            Platform.runLater(()->{
+                                browserState.onPageLoading(webEngine);
+                                browserState.onSecureStateChange((webEngine.getLocation()!=null && webEngine.getLocation().startsWith("https")));
+                            });
                         }
 
                         if (newState == Worker.State.SUCCEEDED ||
                                 newState == Worker.State.CANCELLED ||
                                 newState == Worker.State.FAILED) {
                             if(browserState!=null)
-                                browserState.onPageLoaded(webEngine);
-                                tabView.getTab().setText(webEngine.getTitle());
-                                tabView.getTab().setGraphic(loadFavicon(webEngine.getLocation()));
+                                Platform.runLater(()->{
+                                    browserState.onPageLoaded(webEngine);
+                                    tabView.getTab().setText(webEngine.getTitle());
+                                    tabView.getTab().setGraphic(loadFavicon(webEngine.getLocation()));});
+
 
                         }
                     }
@@ -154,4 +155,7 @@ public class Browser {
         }
     }
 
+    public void setUserAgent(UserAgent checkedUserAgent) {
+        this.webEngine.setUserAgent(checkedUserAgent.getAgent());
+    }
 }
